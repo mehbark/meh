@@ -2,6 +2,7 @@
 (library (meh match)
   (export
    match if-let when-let
+   if-let* when-let*
    define-m%-expander define-pattern define-pattern-expander
    m%-expander pattern-expander
 
@@ -37,6 +38,22 @@
     [(_ pattern scrutinee body* ...)
      (if-let pattern scrutinee (begin body* ...))]))
 
+(define-syntax if-let*
+  (syntax-rules ()
+    [(_ binds then) (if-let* binds then (void))]
+    [(_ () then else) then]
+    [(_ ([pat val] bind* ...) then else)
+     (if-let pat val
+       (if-let* (bind* ...) then else)
+       else)]))
+
+(define-syntax when-let*
+  (syntax-rules ()
+    [(_ ([pat* val*] ...) body* ...)
+     (if-let* ([pat* val*] ...) (begin body* ...))]))
+
+;; TODO: match-let, match errors
+
 ;; no unless-let because come on
 
 (define-syntax match%
@@ -58,6 +75,7 @@
       (define (find-pattern-expander name)
         (and (identifier? name) (lookup name #'pattern-expander)))
       ;; - is a decent choice because _ isn't allowed and * implies something else
+      ;; you can also just use _ multiple times lol
       (syntax-case e (-)
         [(_ s - ok fail) #'ok]
 
