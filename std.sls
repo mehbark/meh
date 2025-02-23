@@ -16,7 +16,8 @@
 
   (import (chezscheme))
 
-  (export (import (meh match)))
+  (export (import (meh match))
+          (import (meh record)))
 
   ;;; SYNTAX
 
