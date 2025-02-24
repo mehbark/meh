@@ -1,5 +1,5 @@
 (library (meh record)
-  (export define-record-equality! define-record-matcher!)
+  (export define-record-equality! define-record-pattern!)
   (import (chezscheme)
           (meh match))
 
