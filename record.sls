@@ -22,7 +22,7 @@
      (begin (define-record-equality! name)
             (define-record-equality! name*) ...)]))
 
-(define-syntax define-record-matcher!
+(define-syntax define-record-pattern!
   (syntax-rules ()
     [(_ record-type-name)
      (define-pattern record-type-name
@@ -37,6 +37,6 @@
                      (access (record-accessor rtd idx*) pat*)
                      (... ...)))])))]
     [(_ name name* ...)
-     (begin (define-record-matcher! name)
-            (define-record-matcher! name*) ...)]))
+     (begin (define-record-pattern! name)
+            (define-record-pattern! name*) ...)]))
 )
