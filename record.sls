@@ -6,6 +6,8 @@
 (define-syntax define-record-equality!
   (syntax-rules ()
     [(_ record-type-name)
+     ;; pointless definition ensures that you can do (begin (define) (define-record-equality!) (define))
+     (define _
      (let ()
        (define rtd (record-type-descriptor record-type-name))
        (define field-count (vector-length (record-type-field-names rtd)))
@@ -17,7 +19,7 @@
                                     (lambda (r1 r2 =)
                                       (for-all
                                        (lambda (accessor) (= (accessor r1) (accessor r2)))
-                                       accessors))))]
+                                       accessors)))))]
     [(_ name name* ...)
      (begin (define-record-equality! name)
             (define-record-equality! name*) ...)]))
