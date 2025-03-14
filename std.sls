@@ -1,3 +1,4 @@
+;; todo: numerics (lerp)
 ;; amalgam of useful stuff
 (library (meh std)
   (export
@@ -17,7 +18,14 @@
   (import (chezscheme))
 
   (export (import (meh match))
-          (import (meh record)))
+          (import (meh record))
+          ;; these srfis are included in std instead of a forward library because they are
+          ;; * final
+          ;; * implemented by chez-srfi
+          ;; * broadly useful
+          ;; * unlikely to have name conflicts
+          (import (srfi :17))
+          (import (srfi :26)))
 
   ;;; SYNTAX
 
